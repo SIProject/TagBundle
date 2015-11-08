@@ -1,0 +1,9 @@
+parameters:
+    sip.tag.admin.class: SIP\TagBundle\Admin\TagAdmin
+
+services:
+    sip.tag.admin:
+        class: %sip.tag.admin.class%
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: dict, label: Tag }
+        arguments: [null, %fpn_tag.entity.tag.class%, null]

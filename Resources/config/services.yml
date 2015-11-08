@@ -1,0 +1,26 @@
+parameters:
+    sip.resource.tag_transformer.class: SIP\TagBundle\Form\DataTransformer\TagTransformer
+    fpn_tag.tag_manager.class: SIP\TagBundle\Manager\TagManager
+
+services:
+    sip.resource.form.show.image.type:
+        class: SIP\ResourceBundle\Form\Type\ShowImageType
+        tags:
+            - { name: form.type, alias: show_sonata_image }
+
+    sip_resource.twig.settings:
+            class: SIP\ResourceBundle\Twig\Extension\SettingsExtension
+            arguments: ['@service_container']
+            tags: [{ name: twig.extension }]
+
+    sip_resource.twig.meta:
+        class: SIP\ResourceBundle\Twig\Extension\MetaExtension
+        arguments:
+              doctrine: "@doctrine"
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    sip.tag_transformer:
+        class: %sip.resource.tag_transformer.class%
+        arguments: [@fpn_tag.tag_manager]

@@ -1,0 +1,12 @@
+{
+    "name": "sip/tag-bundle",
+    "type": "sip-bundle",
+    "description": "Allow use tag wth SonataAdminBundle.",
+    "require": {
+        "fpn/tag-bundle": "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "SIP\\TagBundle": "" }
+    },
+    "target-dir": "SIP/TagBundle"
+}
