@@ -9,7 +9,7 @@ use Sonata\AdminBundle\Admin\Admin;
 class BaseTagAdmin extends Admin
 {
     /**
-     * @var \SIP\ResourceBundle\Form\DataTransformer\TagTransformer
+     * @var \SIP\TagBundle\Form\DataTransformer\TagTransformer
      */
     protected $tagTransformer;
 
@@ -18,11 +18,8 @@ class BaseTagAdmin extends Admin
      */
     public function getFormBuilder()
     {
-        $container = $this->getConfigurationPool()->getContainer();
-        $this->tagTransformer = $container->get('sip.tag_transformer');
-
         $formBuilder = parent::getFormBuilder();
-        $formBuilder->addModelTransformer($this->tagTransformer);
+        $formBuilder->addModelTransformer($this->getTagTransformer());
         return $formBuilder;
     }
 
@@ -33,7 +30,7 @@ class BaseTagAdmin extends Admin
     public function postUpdate($object)
     {
         parent::postUpdate($object);
-        $this->tagTransformer->postPersist($object);
+        $this->getTagTransformer()->postPersist($object);
     }
 
     /**
@@ -42,6 +39,19 @@ class BaseTagAdmin extends Admin
      */
     public function postPersist($object)
     {
-        $this->tagTransformer->postPersist($object);
+        $this->getTagTransformer()->postPersist($object);
+    }
+
+    /**
+     * @return object|\SIP\TagBundle\Form\DataTransformer\TagTransformer
+     */
+    public function getTagTransformer()
+    {
+        if (!$this->tagTransformer) {
+            $container = $this->getConfigurationPool()->getContainer();
+            $this->tagTransformer = $container->get('sip.tag_transformer');
+        }
+
+        return $this->tagTransformer;
     }
 }

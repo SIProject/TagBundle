@@ -45,7 +45,7 @@ class TagAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('name', null, array('label' => 'sip_tag_name'))
-            ->add('slug', null, array('label' => 'sip_tag_slug'))
+            ->add('slug', null, array('label' => 'sip_tag_slug', 'required' => false))
             ->add('_action', 'actions', array('actions' => array(
                 'edit' => array(),
                 'delete' => array(),
